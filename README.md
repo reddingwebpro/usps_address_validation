@@ -9,3 +9,7 @@ When you instantiate the class, include the API key. See the example.php file fo
 * 1.1 Bugfix 500 error.
 
 This code was written by request by another developer on phpClasses.org because Streetlayers is going away very soon. 
+
+## License
+GNU General Public License v3.0 (GNU GPLv3)
+http://www.gnu.org/licenses/gpl-3.0-standalone.html
