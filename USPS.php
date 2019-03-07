@@ -30,6 +30,6 @@ class USPS
         $data = curl_exec($ch);
         curl_close($ch);
         $array_data = json_decode(json_encode(simplexml_load_string($data)), true);
-        return $array_data['Address'];
+        return $array_data;
     }
 }

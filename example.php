@@ -9,17 +9,18 @@
 
 // example code shown below:
 
-require ('USPS.php');
+require('USPS.php');
 use RedWebDev\USPS;
+
 $uspsZip = new USPS('YOUR_API_KEY_HERE');  // insert your api key from USPS
 
 $address = '1600 Amphitheatre Parkway'; // address line is required
-$city  = 'Mountain View';
+$city = 'Mountain View';
 $state = 'CA';  //looking for the two character state
 
-$return = $uspsZip->getZipCode($address,$city,$state);
+$return = $uspsZip->getNormalized($address, $city, $state);
 echo "<ul>";
-echo "<li>Address: ".$return['Address1'];
-echo "<li>City: ".$return['City];
-echo "<li>State: ".$return['State'];
-echo "<li>Zip: ".$return['Zip5'];
+echo "<li>Address: " . $return['Address1'];
+echo "<li>City: " . $return['City'];
+echo "<li>State: " . $return['State'];
+echo "<li>Zip: " . $return['Zip5'];
