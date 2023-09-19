@@ -18,7 +18,7 @@
  * Date: 3/6/2019 (rev. 9/19/23)
  */
 
-namespace RedWebDev;
+namespace RedWebDev\src;
 
 class USPS
 {
