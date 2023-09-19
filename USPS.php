@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright (c) 2019. ReddingWebPro / Jason J. Olson, This program is free software: you can redistribute it and/or
+ * Copyright (c) 2019-2023. ReddingWebPro / Jason J. Olson, This program is free software: you can redistribute it and/or
  * modify it under the terms of the GNU General Public License as published by the Free Software Foundation version 3
  * of the License.
  * This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without
@@ -14,32 +14,66 @@
  * User: Jason J. Olson
  * License: GNU GPLv3
  * GitHub: https://github.com/reddingwebpro/usps_address_validation
- * Date: 3/6/2019
+ * Version 2.0
+ * Date: 3/6/2019 (rev. 9/19/23)
  */
 
 namespace RedWebDev;
 
 class USPS
 {
-    function __construct($api) {
-        $this->api = $api;
-    }
-    public function getNormalized($address,$city,$state)
+
+    private string $key;
+    private string $secret;
+
+    function __construct(string $key, string $secret)
     {
-        $api = $this->api;
-        $input_xml = "<ZipCodeLookupRequest USERID=\"$api\"><Address ID= \"0\"><Address1>$address</Address1><City>$city</City><State>$state</State></Address></ZipCodeLookupRequest>";
+        $this->key = $key;
+        $this->secret = $secret;
+    }
+
+    private function getOauthV3Token(): string
+    {
+        $fields['client_id'] = $this->key;
+        $fields['client_secret'] = $this->secret;
+        $fields['grant_type'] = "client_credentials";
+
+        $ch = curl_init();
+        curl_setopt($ch, CURLOPT_URL, 'https://api.usps.com/oauth2/v3/token');
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+        curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 300);
+        curl_setopt($ch, CURLOPT_POST, true);
+        curl_setopt($ch, CURLOPT_POSTFIELDS, http_build_query($fields));
+
+        $json = curl_exec($ch);
+        curl_close($ch);
+
+        $data = json_decode($json, true);
+
+        return $data['access_token'];
+    }
+
+    public function getNormalized($address, $city, $state): array
+    {
+        $token = $this->getOauthV3Token();
+        $authorization = "Authorization: Bearer ".$token;
+        $userID = "x-user-id: ".$this->key;
+
         $fields = array(
-            'API' => 'ZipCodeLookup',
-            'XML' => $input_xml
+            'streetAddress' => $address,
+            'city' => $city,
+            'state' => $state,
         );
-        $url = 'https://secure.shippingapis.com/ShippingAPI.dll?' . http_build_query($fields);
+
+        $url = 'https://api.usps.com/addresses/v3/address?'.http_build_query($fields);
         $ch = curl_init();
         curl_setopt($ch, CURLOPT_URL, $url);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
         curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 300);
-        $data = curl_exec($ch);
+        curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type: application/json', $userID, $authorization));
+        $json = curl_exec($ch);
         curl_close($ch);
-        $array_data = json_decode(json_encode(simplexml_load_string($data)), true);
-        return $array_data;
+
+        return json_decode($json, true);
     }
 }

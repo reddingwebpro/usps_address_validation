@@ -7,6 +7,7 @@ When you instantiate the class, include the API key. See the example.php file fo
 # Revision History:
 * 1.0 Initial Release
 * 1.1 Bugfix 500 error.
+* 2.0 Updated for new USPS API V3 & PHP 8 coding standards
 
 This code was written by request by another developer on phpClasses.org because Streetlayers is going away very soon. 
 
