@@ -18,9 +18,9 @@
  * Date: 3/6/2019 (rev. 9/19/23)
  */
 
-namespace RedWebDev\src;
+namespace RedWebDev;
 
-class USPS
+class AddressValidation
 {
 
     private string $key;
