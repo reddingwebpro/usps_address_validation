@@ -1,5 +1,5 @@
 {
-  "name": "RedWebDev/usps_address_validation",
+  "name": "redwebdev/usps_address_validation",
   "description": "This class will check a USA based address against the USPS.",
   "minimum-stability": "stable",
   "license": "GNU GPL-3.0-or-later",
