@@ -15,7 +15,7 @@
   },
   "autoload": {
     "psr-4": {
-      "RedWebDev\\USPS": "src"
+      "RedWebDev\\usps_address_validation": "src"
     }
   }
 }
