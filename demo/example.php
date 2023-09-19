@@ -22,7 +22,8 @@
 // example code shown below:
 
 require('USPS.php');
-use RedWebDev\USPS;
+
+use RedWebDev\src\USPS;
 
 $uspsZip = new USPS('Consumer Key','Consumer Secret');  // insert your api key from USPS
 

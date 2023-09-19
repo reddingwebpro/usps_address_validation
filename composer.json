@@ -1,0 +1,21 @@
+{
+  "name": "reddingwebdev/usps_address_validation",
+  "description": "This class will check a USA based address against the USPS.",
+  "minimum-stability": "stable",
+  "license": "GNU GPL-3.0-or-later",
+  "authors": [
+    {
+      "name": "Jason Olson",
+    }
+  ],
+  "require": {
+    "php": ">=7.4",
+    "ext-curl": "*",
+
+  },
+  "autoload": {
+    "psr-4": {
+      "RedWebDev\\USPS": "src"
+    }
+  }
+}
