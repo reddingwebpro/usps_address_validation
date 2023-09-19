@@ -5,12 +5,12 @@
   "license": "GNU GPL-3.0-or-later",
   "authors": [
     {
-      "name": "Jason Olson",
+      "name": "Jason Olson"
     }
   ],
   "require": {
     "php": ">=7.4",
-    "ext-curl": "*",
+    "ext-curl": "*"
 
   },
   "autoload": {
